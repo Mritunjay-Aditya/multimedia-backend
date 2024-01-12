@@ -4,7 +4,7 @@ dotenv.config({
     path: './env'
 })
 
-connectDB()
+connectDB() //after the connection of DB is done then the ".then" file will run.
 .then(()=>{
     app.on("error",(error)=>{
         console.log("Server Crashed Due to ", error);
