@@ -1,1 +1,1 @@
-export const DB_NAME="multimedia_player" 
+export const DB_NAME="multimedia_player"
