@@ -1,40 +1,43 @@
 import mongoose, {Schema} from "mongoose";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 
-const userSchema = new Schema({
-     username:{
-        type:String,
-        required:true,
-        unique:true,
-        lowercase:true,
-        trim:true,
-        index:true,
-     },
-     email:{
-        type:String,
-        required:true,
-        unique:true,
-        lowercase:true,
-        trim:true,
-     },
-     fullname:{
+console.log("running user.modles");
+const userSchema = new Schema(
+    {
+        username: {
+            type: String,
+            required: true,
+            unique: true,
+            lowercase: true,
+            trim: true, 
+            index: true
+        },
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+            lowercase: true,
+            trim: true, 
+        },
+     fullName:{
         type:String,
         required:true,
         trim:true,
         index:true,
      },
      avatar:{
-        typr:String,//cloudinary url
+        type:String,//cloudinary url
         required:true,
      },
      coverImage: {
-        type:String,  //cloudinary url
+        type:String,
+        required:true,  //cloudinary url
      },
      watchHistory:[
         {
-           type:Schema.Types.ObjectId,
-           ref:"Video",
+           type: Schema.Types.ObjectId,
+           ref: "Video",
         },
      ],
      password:{
@@ -55,18 +58,17 @@ userSchema.pre("save",async function(next){
    this.password = await bcrypt.hash(this.password,10)
    next()
 })
-userSchema.methods.isPasswordCorrect = async function
-(password){
+userSchema.methods.isPasswordCorrect = async function(password){
    return await bcrypt.compare(password,this.password)
 }
 
-userSchema.methods.generateToken = function(){
+userSchema.methods.generateAccessToken = function(){
    return jwt.sign(
       {
-         _id: this.id,
+         _id: this._id,
          email: this.email,
          username: this.username,
-         fullname: this.fullname
+         fullName: this.fullName
       },
       process.env.ACCESS_TOKEN_SECRET,
       {
@@ -86,4 +88,4 @@ userSchema.methods.generateRefreshToken = function(){
    )
 }
 
-export const User = mongoose.model("User", userSchema); 
+export const User = mongoose.model("User", userSchema);
