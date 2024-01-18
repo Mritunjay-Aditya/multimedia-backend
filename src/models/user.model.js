@@ -31,8 +31,7 @@ const userSchema = new Schema(
         required:true,
      },
      coverImage: {
-        type:String,
-        required:true,  //cloudinary url
+        type:String,  //cloudinary url
      },
      watchHistory:[
         {
