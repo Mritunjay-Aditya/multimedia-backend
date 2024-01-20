@@ -54,9 +54,9 @@ const registerUser = asyncHandler(async (req, res) => {
     const avatarLocalPath = req.files?.avatar[0]?.path; 
     
     //req.files.avatar[0].pathves the access of the fime from the middleware multer.
-    let coverjpgLocalPath;
-    if (req.files && Array.isArray(req.files.coverjpg) && req.files.coverjpg.length > 0) {
-        coverjpgLocalPath = req.files.coverjpg[0].path
+    let coverImageLocalPath;
+    if (req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0) {
+        coverImageLocalPath = req.files.coverImage[0].path
     }
     
     
@@ -65,7 +65,7 @@ const registerUser = asyncHandler(async (req, res) => {
         throw new ApiError(400,"Avatar is required")
     }
     const avatar = await uploadOnCloudinary(avatarLocalPath)
-    const coverjpg = await uploadOnCloudinary(coverjpgLocalPath)
+    const coverImage = await uploadOnCloudinary(coverImageLocalPath)
     
     
 
@@ -76,7 +76,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const user = await User.create({
         fullName,
         avatar:avatar.url,
-        coverjpg:coverjpg?.url || "",
+        coverImage:coverImage?.url || "",
         email,
         password,
         username:username.toLowerCase()
