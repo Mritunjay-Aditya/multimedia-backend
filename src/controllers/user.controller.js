@@ -187,7 +187,7 @@ const logoutUser = asyncHandler(async(req, res) => {
     console.log("User logged Out Successfully")
 })
 
-const refreshAccessToken = asyncHandler(async (req, res) => {
+const refreshAccessToken = asyncHandler(async (req, res) => {     // to get the access token from the refresh token once the access token is expired.
     const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken
 
     if (!incomingRefreshToken) {
