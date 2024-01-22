@@ -153,7 +153,7 @@ const loginUser = asyncHandler(async (req, res) =>{
 
 })
 
-const logoutUser = asyncHandler(async(req, res) => {
+const logoutUser = asyncHandler(async(req, res) => {   //log out user by removing refresh token from db and clearing cookies
     await User.findByIdAndUpdate(
         req.user._id,
         {
