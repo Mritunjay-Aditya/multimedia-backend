@@ -284,7 +284,7 @@ const updateAccountDetails = asyncHandler(async(req, res) => {
         },
         {new: true}
         
-    ).select("-password")
+    ).select("-password") // this is to remove the password field from the response so that front end can not see the password
 
     return res
     .status(200)
