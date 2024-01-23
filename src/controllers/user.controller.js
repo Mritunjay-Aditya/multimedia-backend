@@ -236,12 +236,13 @@ const refreshAccessToken = asyncHandler(async (req, res) => {     // to get the 
 })
 
 const changeCurrentPassword = asyncHandler(async(req, res) => {
-    const {oldPassword, newPassword} = req.body
+    const {oldPassword, newPassword} = req.body  // check new password on frontend that it is not same as old password
 
     
 
-    const user = await User.findById(req.user?._id)
-    const isPasswordCorrect = await user.isPasswordCorrect(oldPassword)
+    const user = await User.findById(req.user?._id)  // req.user is coming from auth middleware because if the user is changing the password then it meand
+    // that the user is logged in and if the user is logged in then the auth middleware will set the user object in the req object.
+    const isPasswordCorrect = await user.isPasswordCorrect(oldPassword)  // this is a method that we have created in user model to check if the old password is correct or not
 
     if (!isPasswordCorrect) {
         throw new ApiError(400, "Invalid old password")
