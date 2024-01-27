@@ -11,6 +11,6 @@ const subscriptionSchema = new Schema({
     }
 }, {timestamps: true})
 
-
+//searching for channel will get subscription and search for subscription will give you channel name.
 
 export const Subscription = mongoose.model("Subscription", subscriptionSchema)
